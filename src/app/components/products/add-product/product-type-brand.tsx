@@ -45,7 +45,9 @@ const ProductTypeBrand = ({
       default_value.brand &&
       !hasDefaultValues
     ) {
-      const brand = Array.isArray(brands?.result) ? brands.result.find((b) => b.name === default_value.brand) : undefined;
+      const brand = (brands?.result && Array.isArray(brands.result))
+        ? brands.result.find((b) => b.name === default_value.brand)
+        : undefined;
       if (brand) {
         setSelectBrand({ id: brand._id as string, name: default_value.brand });
         setSelectProductType(default_value.product_type);
