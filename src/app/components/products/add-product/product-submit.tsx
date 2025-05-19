@@ -58,20 +58,54 @@ const ProductSubmit = () => {
   const handleSubmitProduct = async (data: any) => {
     try {
       setValidationErrors([]); // Clear previous errors
+      console.log('Submitting form data:', data); // Log the form data being submitted
       await originalHandleSubmitProduct(data);
     } catch (error: any) {
+      console.error("Form submission error:", error);
+      
+      // Handle different types of errors
+      let errorMessages: string[] = [];
+      
       if (error.message) {
         // Split error message into individual errors if it contains newlines
-        const errors = error.message.split('\n').filter(Boolean);
-        setValidationErrors(errors);
+        errorMessages = error.message.split('\n').filter(Boolean);
+        
+        // Log each error message for debugging
+        errorMessages.forEach((msg, index) => {
+          console.error(`Error ${index + 1}:`, msg);
+        });
+      } else if (error.response?.data) {
+        // Handle axios error response
+        const errorData = error.response.data;
+        if (typeof errorData === 'string') {
+          errorMessages = [errorData];
+        } else if (errorData.message) {
+          errorMessages = [errorData.message];
+        } else if (Array.isArray(errorData)) {
+          errorMessages = errorData.map(err => err.message || err);
+        } else {
+          errorMessages = ["Server validation failed. Please check your input."];
+        }
+      } else {
+        errorMessages = ["An unexpected error occurred. Please try again."];
       }
+      
+      setValidationErrors(errorMessages);
+      
+      // Scroll to the top of the form to show validation errors
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(handleSubmitProduct)}>
+    <form onSubmit={handleSubmit(handleSubmitProduct)} className="relative">
       {validationErrors.length > 0 && (
-        <ValidationSummary errors={validationErrors} />
+        <div className="sticky top-0 z-50">
+          <ValidationSummary errors={validationErrors} />
+        </div>
       )}
       <div className="grid grid-cols-12 gap-6 mb-6">
         {/* left side */}

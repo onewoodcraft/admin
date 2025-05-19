@@ -157,11 +157,10 @@ const useProductSubmit = () => {
       validationErrors.push("Quantity must be a non-negative number");
     }
 
-    // If there are validation errors, show them all at once
+    // If there are validation errors, throw them to be caught by the form component
     if (validationErrors.length > 0) {
-      const errorMessage = validationErrors.join("\n");
       console.error("Validation errors:", validationErrors);
-      return notifyError(errorMessage);
+      throw new Error(validationErrors.join("\n"));
     }
 
     // If no variations are added, use the main product image as a variation
@@ -207,29 +206,44 @@ const useProductSubmit = () => {
       const res = await addProduct(productData);
       if ("error" in res) {
         if ("data" in res.error) {
-          const errorData = res.error.data as { message?: string; errors?: any[] };
-          if (errorData.errors) {
-            // Handle validation errors from the server
-            const serverErrors = errorData.errors.map(err => err.msg || err.message).join("\n");
-            console.error("Server validation errors:", errorData.errors);
-            return notifyError(serverErrors);
+          const errorData = res.error.data as { message?: string; errors?: any[]; error?: string };
+          console.error("Server error response:", errorData);
+          
+          // Handle different types of server error responses
+          if (errorData.errors && Array.isArray(errorData.errors)) {
+            // Handle array of validation errors
+            const serverErrors = errorData.errors.map(err => err.msg || err.message || err).join("\n");
+            throw new Error(serverErrors);
+          } else if (errorData.error) {
+            // Handle single error message
+            throw new Error(errorData.error);
+          } else if (typeof errorData.message === "string") {
+            // Handle message field
+            throw new Error(errorData.message);
+          } else {
+            // Handle unknown error format
+            console.error("Unknown error format:", errorData);
+            throw new Error("Server validation failed. Please check your input and try again.");
           }
-          if (typeof errorData.message === "string") {
-            console.error("Server error:", errorData.message);
-            return notifyError(errorData.message);
-          }
+        } else {
+          // Handle error without data
+          console.error("Error without data:", res.error);
+          throw new Error("Failed to add product. Please try again.");
         }
-        console.error("Unknown error in response:", res.error);
-        return notifyError("Failed to add product. Please check all fields and try again.");
       } else {
         notifySuccess("Product created successfully");
         setIsSubmitted(true);
         resetForm();
         router.push('/product-grid');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error adding product:", error);
-      notifyError("Something went wrong while adding the product. Please try again.");
+      // If it's already an Error object with a message, rethrow it
+      if (error instanceof Error) {
+        throw error;
+      }
+      // If it's a string or other format, wrap it in an Error
+      throw new Error(typeof error === 'string' ? error : "Failed to add product. Please try again.");
     }
   };
   // handle edit product
