@@ -13,7 +13,11 @@ export default withMT({
   theme: {
     extend: {
       colors: {
-        ...colors,
+        sky: colors.sky,
+        stone: colors.stone,
+        neutral: colors.neutral,
+        gray: colors.gray,
+        slate: colors.slate,
         theme: '#0989FF',
         themeLight: '#E1F0FF',
         themeDark: '#056ECE',
@@ -32,14 +36,13 @@ export default withMT({
         black: '#010F1C',
         yellow: '#FFB21D',
         red: '#EA0D42',
-        gray: '#F2F2F6',
         gray2: '#E6EAF0',
         gray3: '#FFF3EC',
         gray4: '#FEEFD0',
         gray5: '#F7F7F9',
         gray6: '#EFF2F5',
-        greenDark : '#75CC68',
-        greenLight : '#EEFBEC',
+        greenDark: '#75CC68',
+        greenLight: '#EEFBEC',
         current: 'currentColor',
       },
       dropShadow: {
