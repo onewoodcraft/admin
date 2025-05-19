@@ -75,7 +75,7 @@ const ProductTypeBrand = ({
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && isError && Array.isArray(brands?.result) && brands.result.length === 0) {
+  if (!isLoading && isError && brands && Array.isArray(brands.result) && brands.result.length === 0) {
     content = <ErrorMsg msg="No Category Found" />;
   }
 
