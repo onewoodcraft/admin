@@ -110,7 +110,69 @@ const useProductSubmit = () => {
 
   // handle submit product
   const handleSubmitProduct = async (data: any) => {
-    // console.log("product data--->", data);
+    // Create an array to collect validation errors
+    const validationErrors: string[] = [];
+
+    // Validate required fields with specific messages
+    if (!img) {
+      validationErrors.push("Main product image is required");
+    }
+    if (!category.name) {
+      validationErrors.push("Category is required");
+    }
+    if (!brand.name || !brand.id) {
+      validationErrors.push("Brand is required");
+    }
+    if (!productType) {
+      validationErrors.push("Product type is required");
+    }
+    if (!data.title?.trim()) {
+      validationErrors.push("Product title is required");
+    }
+    if (!data.SKU?.trim()) {
+      validationErrors.push("SKU is required");
+    }
+    if (!data.unit?.trim()) {
+      validationErrors.push("Unit is required");
+    }
+    if (!data.description?.trim()) {
+      validationErrors.push("Product description is required");
+    }
+
+    // Convert and validate numeric fields
+    const price = Number(data.price);
+    const discount = Number(data.discount_percentage) || 0;
+    const quantity = Number(data.quantity);
+
+    if (isNaN(price) || price <= 0) {
+      validationErrors.push("Price must be a positive number");
+    }
+    if (isNaN(discount) || discount < 0) {
+      validationErrors.push("Discount must be a non-negative number");
+    }
+    if (discount > price) {
+      validationErrors.push("Product price must be greater than discount");
+    }
+    if (isNaN(quantity) || quantity < 0) {
+      validationErrors.push("Quantity must be a non-negative number");
+    }
+
+    // If there are validation errors, show them all at once
+    if (validationErrors.length > 0) {
+      const errorMessage = validationErrors.join("\n");
+      console.error("Validation errors:", validationErrors);
+      return notifyError(errorMessage);
+    }
+
+    // If no variations are added, use the main product image as a variation
+    let finalImageURLs = [...imageURLs];
+    if (finalImageURLs.length === 0 && img) {
+      finalImageURLs = [{
+        color: { name: "Default", clrCode: "#000000" },
+        img: img,
+        sizes: []
+      }];
+    }
 
     // product data
     const productData = {
@@ -119,12 +181,12 @@ const useProductSubmit = () => {
       title: data.title,
       slug: slugify(data.title, { replacement: "-", lower: true }),
       unit: data.unit,
-      imageURLs: imageURLs,
+      imageURLs: finalImageURLs,
       parent: parent,
       children: children,
-      price: data.price,
-      discount: data.discount_percentage,
-      quantity: data.quantity,
+      price: price,
+      discount: discount,
+      quantity: quantity,
       brand: brand,
       category: category,
       status: status,
@@ -134,37 +196,40 @@ const useProductSubmit = () => {
       },
       productType: productType,
       description: data.description,
-      videoId: data.youtube_video_Id,
+      videoId: data.youtube_video_Id || "",
       additionalInformation: additionalInformation,
       tags: tags,
     };
 
-    console.log('productData-------------------..>',productData)
+    console.log('Submitting product data:', productData);
 
-
-    if (!img) {
-      return notifyError("Product image is required");
-    }
-    if (!category.name) {
-      return notifyError("Category is required");
-    }
-    if (Number(data.discount) > Number(data.price)) {
-      return notifyError("Product price must be gether than discount");
-    } else {
+    try {
       const res = await addProduct(productData);
       if ("error" in res) {
         if ("data" in res.error) {
-          const errorData = res.error.data as { message?: string };
+          const errorData = res.error.data as { message?: string; errors?: any[] };
+          if (errorData.errors) {
+            // Handle validation errors from the server
+            const serverErrors = errorData.errors.map(err => err.msg || err.message).join("\n");
+            console.error("Server validation errors:", errorData.errors);
+            return notifyError(serverErrors);
+          }
           if (typeof errorData.message === "string") {
+            console.error("Server error:", errorData.message);
             return notifyError(errorData.message);
           }
         }
+        console.error("Unknown error in response:", res.error);
+        return notifyError("Failed to add product. Please check all fields and try again.");
       } else {
-        notifySuccess("Product created successFully");
+        notifySuccess("Product created successfully");
         setIsSubmitted(true);
         resetForm();
-        router.push('/product-grid')
+        router.push('/product-grid');
       }
+    } catch (error) {
+      console.error("Error adding product:", error);
+      notifyError("Something went wrong while adding the product. Please try again.");
     }
   };
   // handle edit product

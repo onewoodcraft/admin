@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import useProductSubmit from "@/hooks/useProductSubmit";
 import DescriptionTextarea from "./description-textarea";
 import OfferDatePicker from "./offer-date-picker";
@@ -11,10 +11,26 @@ import ProductCategory from "../../category/product-category";
 import Tags from "./tags";
 import FormField from "../form-field";
 
+const ValidationSummary = ({ errors }: { errors: string[] }) => {
+  if (!errors.length) return null;
+  
+  return (
+    <div className="mb-6 bg-red-50 border border-red-200 rounded-md p-4">
+      <h4 className="text-red-800 font-medium mb-2">Please fix the following errors:</h4>
+      <ul className="list-disc list-inside space-y-1">
+        {errors.map((error, index) => (
+          <li key={index} className="text-red-600 text-sm">{error}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
 const ProductSubmit = () => {
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
   const {
     handleSubmit,
-    handleSubmitProduct,
+    handleSubmitProduct: originalHandleSubmitProduct,
     register,
     errors,
     tags,
@@ -38,8 +54,25 @@ const ProductSubmit = () => {
 
   console.log('additionalInformation--->',additionalInformation,'imageURLs--->',imageURLs)
 
+  // Wrap the submit handler to capture validation errors
+  const handleSubmitProduct = async (data: any) => {
+    try {
+      setValidationErrors([]); // Clear previous errors
+      await originalHandleSubmitProduct(data);
+    } catch (error: any) {
+      if (error.message) {
+        // Split error message into individual errors if it contains newlines
+        const errors = error.message.split('\n').filter(Boolean);
+        setValidationErrors(errors);
+      }
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit(handleSubmitProduct)}>
+      {validationErrors.length > 0 && (
+        <ValidationSummary errors={validationErrors} />
+      )}
       <div className="grid grid-cols-12 gap-6 mb-6">
         {/* left side */}
         <div className="col-span-12 xl:col-span-8 2xl:col-span-9">
@@ -71,6 +104,14 @@ const ProductSubmit = () => {
                 isRequired={true}
                 placeHolder="SKU"
                 bottomTitle="Enter the product SKU."
+                register={register}
+                errors={errors}
+              />
+              <FormField
+                title="unit"
+                isRequired={true}
+                placeHolder="Unit (e.g., piece, kg)"
+                bottomTitle="Enter the product unit."
                 register={register}
                 errors={errors}
               />
