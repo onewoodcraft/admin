@@ -152,7 +152,7 @@ export default function ProductCategory({
                   </Typography>
                 </AccordionHeader>
               </ListItem>
-              {item.children.length > 0 && (
+              {Array.isArray(item.children) && item.children.length > 0 && (
                 <AccordionBody className="py-1 ml-4">
                   <List 
                     className="p-0" 

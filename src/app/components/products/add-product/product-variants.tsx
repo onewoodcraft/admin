@@ -35,7 +35,7 @@ const ProductVariants = ({
   }, [default_value, hasDefaultValues, setImageURLs, formData]);
   // handle add field
   const handleAddField = () => {
-    const allFieldsNotEmpty = formData.every((field) => field.img);
+    const allFieldsNotEmpty = Array.isArray(formData) && formData.every((field) => field.img);
     if (allFieldsNotEmpty) {
       setFormData((prevFormData) => [
         ...prevFormData,
@@ -78,7 +78,7 @@ const ProductVariants = ({
   return (
     <div className="bg-white px-8 py-8 rounded-md mb-6">
       <h4 className="text-[22px]">Product Variations</h4>
-      {formData.map((field, i) => (
+      {Array.isArray(formData) && formData.map((field, i) => (
         <div key={i} className="mt-10 pt-10 border-t border-gray relative">
            {i !== 0 && (
               <div className="text-end">

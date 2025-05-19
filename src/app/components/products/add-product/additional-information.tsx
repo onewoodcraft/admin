@@ -62,7 +62,7 @@ const AdditionalInformation = ({
       <div className="bg-white px-8 py-8 rounded-md mb-6">
         <h4 className="text-[22px]">Additional Information</h4>
         <div>
-          {formData.map((data, index) => {
+          {Array.isArray(formData) && formData.map((data, index) => {
             const col = index === 0 ? 'col-span-6' : 'col-span-5';
             return (
               <div

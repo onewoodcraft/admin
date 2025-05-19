@@ -45,7 +45,7 @@ const ProductTypeBrand = ({
       default_value.brand &&
       !hasDefaultValues
     ) {
-      const brand = brands?.result.find((b) => b.name === default_value.brand);
+      const brand = Array.isArray(brands?.result) ? brands.result.find((b) => b.name === default_value.brand) : undefined;
       if (brand) {
         setSelectBrand({ id: brand._id as string, name: default_value.brand });
         setSelectProductType(default_value.product_type);
@@ -73,12 +73,12 @@ const ProductTypeBrand = ({
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && isError && brands?.result.length === 0) {
+  if (!isLoading && isError && Array.isArray(brands?.result) && brands.result.length === 0) {
     content = <ErrorMsg msg="No Category Found" />;
   }
 
   if (!isLoading && !isError && brands?.success) {
-    const brandItems = brands.result;
+    const brandItems = Array.isArray(brands.result) ? brands.result : [];
 
     // handleBrandChange
     const handleBrandChange = (selectBrand: string) => {

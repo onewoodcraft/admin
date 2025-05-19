@@ -36,7 +36,7 @@ const ThumbItems = ({ uploadItems }: IPropType) => {
 
   return (
     <React.Fragment>
-      {items.map((file, i) => (
+      {Array.isArray(items) && items.map((file, i) => (
         <div
           key={i}
           className="inline-block mr-5"
