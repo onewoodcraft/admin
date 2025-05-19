@@ -1,10 +1,13 @@
 import Cookies from "js-cookie";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// Set the base URL directly since environment variables might not be loaded
+const BASE_URL = "https://backend-8rnq.onrender.com";
+
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+    baseUrl: BASE_URL,
     prepareHeaders: async (headers, { getState, endpoint }) => {
       try {
         const userInfo = Cookies.get("admin");
