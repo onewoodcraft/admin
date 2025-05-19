@@ -200,25 +200,48 @@ const useProductSubmit = () => {
       tags: tags,
     };
 
-    console.log('Submitting product data:', productData);
+    // Add detailed logging
+    console.log('Product Data being sent to server:', JSON.stringify(productData, null, 2));
+    console.log('Validation state:', {
+      hasMainImage: !!img,
+      hasCategory: !!category.name,
+      hasBrand: !!(brand.name && brand.id),
+      hasProductType: !!productType,
+      hasTitle: !!data.title?.trim(),
+      hasSKU: !!data.SKU?.trim(),
+      hasUnit: !!data.unit?.trim(),
+      hasDescription: !!data.description?.trim(),
+      price: price,
+      discount: discount,
+      quantity: quantity,
+      imageURLsLength: finalImageURLs.length,
+      additionalInformationLength: additionalInformation.length
+    });
 
     try {
       const res = await addProduct(productData);
       if ("error" in res) {
         if ("data" in res.error) {
           const errorData = res.error.data as { message?: string; errors?: any[]; error?: string };
-          console.error("Server error response:", errorData);
+          console.error("Server error response details:", {
+            status: res.error.status,
+            data: errorData,
+            originalError: res.error
+          });
           
           // Handle different types of server error responses
           if (errorData.errors && Array.isArray(errorData.errors)) {
             // Handle array of validation errors
             const serverErrors = errorData.errors.map(err => err.msg || err.message || err).join("\n");
+            console.error("Server validation errors:", errorData.errors);
             throw new Error(serverErrors);
           } else if (errorData.error) {
             // Handle single error message
+            console.error("Server error message:", errorData.error);
             throw new Error(errorData.error);
           } else if (typeof errorData.message === "string") {
             // Handle message field
+            console.error("Server message:", errorData.message);
             throw new Error(errorData.message);
           } else {
             // Handle unknown error format
@@ -231,6 +254,7 @@ const useProductSubmit = () => {
           throw new Error("Failed to add product. Please try again.");
         }
       } else {
+        console.log('Product added successfully:', res);
         notifySuccess("Product created successfully");
         setIsSubmitted(true);
         resetForm();

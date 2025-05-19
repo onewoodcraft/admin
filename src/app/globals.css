@@ -112,3 +112,40 @@ input[type=number] {
 .pagination ul.list-wrap li.disabled {
     display: none;
 }
+
+/* ReactSelect Styles */
+.react-select-container .react-select__control {
+  @apply w-full h-[44px] rounded-md border border-gray6 bg-white;
+}
+
+.react-select-container .react-select__control:hover {
+  @apply border-gray6;
+}
+
+.react-select-container .react-select__control--is-focused {
+  @apply border-primary shadow-none;
+}
+
+.react-select-container .react-select__value-container {
+  @apply px-6 text-base;
+}
+
+.react-select-container .react-select__placeholder {
+  @apply text-gray-400;
+}
+
+.react-select-container .react-select__menu {
+  @apply bg-white border border-gray6 rounded-md shadow-lg mt-1;
+}
+
+.react-select-container .react-select__option {
+  @apply px-6 py-2 text-base cursor-pointer hover:bg-gray-50;
+}
+
+.react-select-container .react-select__option--is-focused {
+  @apply bg-gray-50;
+}
+
+.react-select-container .react-select__option--is-selected {
+  @apply bg-primary text-white hover:bg-primary;
+}
