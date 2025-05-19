@@ -41,7 +41,7 @@ export const authApi = apiSlice.injectEndpoints({
     // login
     loginAdmin: builder.mutation<IAdminLoginRes, IAdminLoginAdd>({
       query: (data) => ({
-        url: "/admin/login",
+        url: "/api/admin/login",
         method: "POST",
         body: data,
       }),
