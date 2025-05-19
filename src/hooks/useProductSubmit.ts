@@ -26,6 +26,9 @@ type ICategory = {
 
 type status = "in-stock" | "out-of-stock" | "discontinued";
 
+// Add constant for Onewoodcraft brand
+const ONEWOODCRAFT_BRAND = { name: "Onewoodcraft", id: "onewoodcraft" };
+
 const useProductSubmit = () => {
   const [sku, setSku] = useState<string>("");
   const [img, setImg] = useState<string>("");
@@ -37,7 +40,6 @@ const useProductSubmit = () => {
   const [price, setPrice] = useState<number>(0);
   const [discount, setDiscount] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(0);
-  const [brand, setBrand] = useState<IBrand>({ name: "", id: "" });
   const [category, setCategory] = useState<ICategory>({ name: "", id: "" });
   const [status, setStatus] = useState<status>("in-stock");
   const [productType, setProductType] = useState<string>("");
@@ -90,7 +92,6 @@ const useProductSubmit = () => {
     setPrice(0);
     setDiscount(0);
     setQuantity(0);
-    setBrand({ name: "", id: "" });
     setCategory({ name: "", id: "" });
     setStatus("in-stock");
     setProductType("");
@@ -108,7 +109,6 @@ const useProductSubmit = () => {
 
   // handle submit product
   const handleSubmitProduct = async (data: any) => {
-    // Create an array to collect validation errors
     const validationErrors: string[] = [];
 
     // Validate required fields with specific messages
@@ -117,9 +117,6 @@ const useProductSubmit = () => {
     }
     if (!category.name) {
       validationErrors.push("Category is required");
-    }
-    if (!brand.name || !brand.id) {
-      validationErrors.push("Brand is required");
     }
     if (!productType) {
       validationErrors.push("Product type is required");
@@ -180,7 +177,7 @@ const useProductSubmit = () => {
       price: price,
       discount: discount,
       quantity: quantity,
-      brand: brand,
+      brand: ONEWOODCRAFT_BRAND,
       category: category,
       status: status,
       offerDate: {
@@ -199,7 +196,6 @@ const useProductSubmit = () => {
     console.log('Validation state:', {
       hasMainImage: !!img,
       hasCategory: !!category.name,
-      hasBrand: !!(brand.name && brand.id),
       hasProductType: !!productType,
       hasTitle: !!data.title?.trim(),
       hasSKU: !!data.SKU?.trim(),
@@ -265,7 +261,6 @@ const useProductSubmit = () => {
   };
   // handle edit product
   const handleEditProduct = async (data: any, id: string) => {
-    // product data
     const productData = {
       sku: data.SKU,
       img: img,
@@ -277,7 +272,7 @@ const useProductSubmit = () => {
       price: data.price,
       discount: data.discount_percentage,
       quantity: data.quantity,
-      brand: brand,
+      brand: ONEWOODCRAFT_BRAND,
       category: category,
       status: status,
       offerDate: {
@@ -328,8 +323,6 @@ const useProductSubmit = () => {
     setDiscount,
     quantity,
     setQuantity,
-    brand,
-    setBrand,
     category,
     setCategory,
     status,
@@ -356,6 +349,7 @@ const useProductSubmit = () => {
     setOfferDate,
     setIsSubmitted,
     isSubmitted,
+    brand: ONEWOODCRAFT_BRAND,
   };
 };
 

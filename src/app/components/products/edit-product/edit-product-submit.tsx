@@ -31,7 +31,6 @@ const EditProductSubmit = ({ id }: { id: string }) => {
     setChildren,
     setImg,
     img,
-    setBrand,
     setProductType,
     imageURLs,
     setImageURLs,
@@ -153,9 +152,7 @@ const EditProductSubmit = ({ id }: { id: string }) => {
               errors={errors}
               control={control}
               setSelectProductType={setProductType}
-              setSelectBrand={setBrand}
               default_value={{
-                brand: product.brand.name,
                 product_type: product.productType,
               }}
             />
