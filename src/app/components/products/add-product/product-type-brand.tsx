@@ -23,7 +23,6 @@ type IPropType = {
   default_value?: {
     brand: string;
     product_type: string;
-    unit: string;
   };
 };
 
@@ -130,28 +129,9 @@ const ProductTypeBrand = ({
     );
   }
 
-  // Add unit options
-  const unitOptions = [
-    { value: "piece", label: "Piece" },
-    { value: "kg", label: "Kilogram (kg)" },
-    { value: "g", label: "Gram (g)" },
-    { value: "l", label: "Liter (L)" },
-    { value: "ml", label: "Milliliter (ml)" },
-    { value: "m", label: "Meter (m)" },
-    { value: "cm", label: "Centimeter (cm)" },
-    { value: "set", label: "Set" },
-    { value: "pair", label: "Pair" },
-    { value: "box", label: "Box" },
-    { value: "pack", label: "Pack" },
-    { value: "dozen", label: "Dozen" },
-    { value: "bundle", label: "Bundle" },
-    { value: "roll", label: "Roll" },
-    { value: "sheet", label: "Sheet" }
-  ];
-
   return (
     <div className="bg-white px-8 py-8 rounded-md mb-6">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 gap-x-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2 gap-x-6">
         <div className="mb-5">
           <p className="mb-0 text-base text-black">ProductType</p>
           <ProductType
@@ -166,33 +146,6 @@ const ProductTypeBrand = ({
         </div>
 
         {content}
-
-        <div className="mb-5">
-          <p className="mb-0 text-base text-black">
-            Unit <span className="text-red">*</span>
-          </p>
-          <Controller
-            name="unit"
-            control={control}
-            rules={{ required: "Unit is required!" }}
-            defaultValue={default_value?.unit || ""}
-            render={({ field }) => (
-              <ReactSelect
-                {...field}
-                options={unitOptions}
-                value={unitOptions.find(option => option.value === field.value) || null}
-                onChange={(selectedOption) => {
-                  field.onChange(selectedOption?.value || "");
-                }}
-                placeholder="Select unit..."
-                className="react-select-container"
-                classNamePrefix="react-select"
-              />
-            )}
-          />
-          <ErrorMsg msg={errors?.unit?.message as string} />
-          <span className="text-tiny leading-4">Set the unit of product.</span>
-        </div>
       </div>
     </div>
   );

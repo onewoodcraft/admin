@@ -1,4 +1,3 @@
-
 type Brand = {
   name: string;
   id: string;
@@ -83,7 +82,7 @@ export interface IAddProduct {
   img: string;
   title: string;
   slug?: string;
-  unit: string;
+  unit?: string;
   imageURLs: {
     color: {
       name?: string;

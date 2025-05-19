@@ -31,7 +31,6 @@ const useProductSubmit = () => {
   const [img, setImg] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [slug, setSlug] = useState<string>("");
-  const [unit, setUnit] = useState<string>("");
   const [imageURLs, setImageURLs] = useState<ImageURL[]>([]);
   const [parent, setParent] = useState<string>("");
   const [children, setChildren] = useState<string>("");
@@ -85,7 +84,6 @@ const useProductSubmit = () => {
     setImg("");
     setTitle("");
     setSlug("");
-    setUnit("");
     setImageURLs([]);
     setParent("");
     setChildren("");
@@ -132,9 +130,6 @@ const useProductSubmit = () => {
     if (!data.SKU?.trim()) {
       validationErrors.push("SKU is required");
     }
-    if (!data.unit?.trim()) {
-      validationErrors.push("Unit is required");
-    }
     if (!data.description?.trim()) {
       validationErrors.push("Product description is required");
     }
@@ -179,7 +174,6 @@ const useProductSubmit = () => {
       img: img,
       title: data.title,
       slug: slugify(data.title, { replacement: "-", lower: true }),
-      unit: data.unit,
       imageURLs: finalImageURLs,
       parent: parent,
       children: children,
@@ -209,7 +203,6 @@ const useProductSubmit = () => {
       hasProductType: !!productType,
       hasTitle: !!data.title?.trim(),
       hasSKU: !!data.SKU?.trim(),
-      hasUnit: !!data.unit?.trim(),
       hasDescription: !!data.description?.trim(),
       price: price,
       discount: discount,
@@ -278,7 +271,6 @@ const useProductSubmit = () => {
       img: img,
       title: data.title,
       slug: slugify(data.title, { replacement: "-", lower: true }),
-      unit: data.unit,
       imageURLs: imageURLs,
       parent: parent,
       children: children,
@@ -324,8 +316,6 @@ const useProductSubmit = () => {
     setTitle,
     slug,
     setSlug,
-    unit,
-    setUnit,
     imageURLs,
     setImageURLs,
     parent,
