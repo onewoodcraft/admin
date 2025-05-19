@@ -42,7 +42,6 @@ const ProductSubmit = () => {
     setChildren,
     setImg,
     img,
-    setBrand,
     setProductType,
     setImageURLs,
     offerDate,
@@ -202,7 +201,6 @@ const ProductSubmit = () => {
             register={register}
             errors={errors}
             control={control}
-            setSelectBrand={setBrand}
             setSelectProductType={setProductType}
           />
           {/* product type and brands end */}
