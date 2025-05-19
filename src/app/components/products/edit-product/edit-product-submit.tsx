@@ -147,17 +147,16 @@ const EditProductSubmit = ({ id }: { id: string }) => {
               </div>
             </div>
 
-            {/* product type and brands start */}
+            {/* product type and brands */}
             <ProductTypeBrand
               register={register}
               errors={errors}
               control={control}
-              setSelectBrand={setBrand}
               setSelectProductType={setProductType}
+              setSelectBrand={setBrand}
               default_value={{
                 brand: product.brand.name,
                 product_type: product.productType,
-                unit: product.unit,
               }}
             />
             {/* product type and brands end */}
