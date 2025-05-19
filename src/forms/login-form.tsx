@@ -32,19 +32,29 @@ const LoginForm = () => {
       const res = await loginAdmin({ email: data.email, password: data.password });
       
       if ("error" in res) {
+        console.error("Login error:", res.error);
         if ("data" in res.error) {
           const errorData = res.error.data as { message?: string };
           if (typeof errorData.message === "string") {
             notifyError(errorData.message);
+          } else {
+            notifyError("Invalid email or password");
+          }
+        } else if ("status" in res.error) {
+          if (res.error.status === "FETCH_ERROR") {
+            notifyError("Unable to connect to the server. Please check your internet connection.");
+          } else {
+            notifyError("An error occurred during login. Please try again.");
           }
         }
       } else {
-        notifySuccess("Login successfully");
+        notifySuccess("Login successful");
         router.push('/dashboard');
         reset();
       }
-    } catch (error) {
-      notifyError("An error occurred during login");
+    } catch (error: any) {
+      console.error("Login error:", error);
+      notifyError(error?.message || "An error occurred during login");
     } finally {
       setIsLoading(false);
     }

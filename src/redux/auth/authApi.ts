@@ -41,7 +41,7 @@ export const authApi = apiSlice.injectEndpoints({
     // login
     loginAdmin: builder.mutation<IAdminLoginRes, IAdminLoginAdd>({
       query: (data) => ({
-        url: "api/admin/login",
+        url: "/admin/login",
         method: "POST",
         body: data,
       }),
@@ -65,8 +65,10 @@ export const authApi = apiSlice.injectEndpoints({
               user: others
             })
           );
-        } catch (err) {
-          // do nothing
+        } catch (err: any) {
+          console.error("Login error:", err);
+          // Let the component handle the error
+          throw err;
         }
       },
     }),
