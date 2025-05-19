@@ -58,10 +58,13 @@ const ProductType = ({
               handleSelectProduct(selectedOption?.value);
             }}
             options={[
-              { value: "electronics", label: "Electronics" },
-              { value: "fashion", label: "Fashion" },
-              { value: "beauty", label: "Beauty" },
-              { value: "jewelry", label: "Jewelry" },
+              { value: "chopping-boards", label: "Chopping Boards" },
+              { value: "platters", label: "Platters" },
+              { value: "trays", label: "Trays" },
+              { value: "planters", label: "Planters" },
+              { value: "bowls", label: "Bowls" },
+              { value: "cake-stands", label: "Cake Stands" },
+              { value: "gifting", label: "Gifting" },
             ]}
           />
         )}

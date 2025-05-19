@@ -10,6 +10,7 @@ const useCategorySubmit = () => {
   const [description, setDescription] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [selectProductType, setSelectProductType] = useState<string>("");
+  const [selectGiftingType, setSelectGiftingType] = useState<string>("");
   const [categoryChildren, setCategoryChildren] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const router = useRouter();
@@ -42,6 +43,7 @@ const useCategorySubmit = () => {
         parent: data?.parent,
         description: data?.description,
         productType: data?.productType?.value,
+        giftingType: data?.productType?.value === 'gifting' ? data?.giftingType?.value : undefined,
         children: categoryChildren,
       };
       const res = await addCategory({ ...category_data });
@@ -58,6 +60,7 @@ const useCategorySubmit = () => {
         reset();
         setCategoryChildren([]);
         setCategoryImg("");
+        setSelectGiftingType("");
       }
     } catch (error) {
       console.log(error);
@@ -72,10 +75,10 @@ const useCategorySubmit = () => {
         parent: data?.parent,
         description: data?.description,
         productType: data?.productType?.value,
+        giftingType: data?.productType?.value === 'gifting' ? data?.giftingType?.value : undefined,
         children: categoryChildren,
       };
       const res = await editCategory({ id, data: category_data });
-      // console.log(res)
       if ("error" in res) {
         if ("data" in res.error) {
           const errorData = res.error.data as { message?: string };
@@ -98,6 +101,8 @@ const useCategorySubmit = () => {
   return {
     selectProductType,
     setSelectProductType,
+    selectGiftingType,
+    setSelectGiftingType,
     register,
     handleSubmit,
     setValue,

@@ -5,8 +5,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Poppins } from "next/font/google";
 import { Providers } from "@/redux/provider";
 
-export const metadata: Metadata = {
-  title: "Shofy - eCommerce Admin Template",
+export const metadata = {
+  title: "OneWoodCraft - Admin Dashboard",
+  description: "OneWoodCraft Admin Dashboard",
 };
 
 const poppins = Poppins({

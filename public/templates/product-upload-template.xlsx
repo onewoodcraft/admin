@@ -1,0 +1,3 @@
+name,description,price,comparePrice,category,images,stock,sku,status,featured,specifications
+"Wooden Chopping Board","Handcrafted wooden chopping board made from premium hardwood",49.99,59.99,"Chopping Boards","https://example.com/image1.jpg,https://example.com/image2.jpg",50,"CHB-001","active","true","{'material':'Hardwood','dimensions':'30x20x2cm','weight':'1.2kg'}"
+"Wooden Platter","Elegant wooden platter perfect for serving",39.99,49.99,"Platters","https://example.com/image3.jpg,https://example.com/image4.jpg",30,"PLT-001","active","false","{'material':'Bamboo','dimensions':'40x30x1.5cm','weight':'0.8kg'}" 

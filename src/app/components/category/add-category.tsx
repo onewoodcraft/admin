@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import useCategorySubmit from "@/hooks/useCategorySubmit";
 import ProductType from "../products/add-product/product-type";
+import GiftingType from "../products/add-product/gifting-type";
 import CategoryTables from "./category-tables";
 import CategoryImgUpload from "./global-img-upload";
 import CategoryChildren from "./category-children";
@@ -12,6 +13,8 @@ const AddCategory = () => {
   const {
     selectProductType,
     setSelectProductType,
+    selectGiftingType,
+    setSelectGiftingType,
     errors,
     control,
     categoryChildren,
@@ -24,6 +27,7 @@ const AddCategory = () => {
     error,
     isSubmitted,
   } = useCategorySubmit();
+
   return (
     <div className="grid grid-cols-12 gap-6">
       <div className="col-span-12 lg:col-span-4">
@@ -59,6 +63,20 @@ const AddCategory = () => {
               </div>
             </div>
             {/* Product Type */}
+
+            {/* Gifting Type */}
+            <div className="mb-6">
+              <p className="mb-0 text-base text-black">Gifting Type</p>
+              <div className="category-add-select select-bordered">
+                <GiftingType
+                  setSelectGiftingType={setSelectGiftingType}
+                  control={control}
+                  errors={errors}
+                  isVisible={selectProductType === 'gifting'}
+                />
+              </div>
+            </div>
+            {/* Gifting Type */}
 
             {/* Category Description */}
             <CategoryDescription register={register} />

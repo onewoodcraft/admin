@@ -42,15 +42,8 @@ export default function Sidebar({sideMenu,setSideMenu}:IProps) {
           <div >
 
             <div className="py-4 pb-8 px-8 border-b border-gray h-[78px]">
-              <Link href="/dashboard">
-                <Image
-                  className="w-[140px]"
-                  width={140}
-                  height={43}
-                  src="/assets/img/logo/logo.svg"
-                  alt="logo"
-                  priority
-                />
+              <Link href="/dashboard" className="text-2xl font-bold">
+                OWC Admin
               </Link>
             </div>
             <div className="px-4 py-5">
@@ -94,7 +87,7 @@ export default function Sidebar({sideMenu,setSideMenu}:IProps) {
                     )}
                     {menu.title === 'Online store' && (
                       <a
-                        href="https://shofy-client.vercel.app/"
+                        href="https://onewoodcraft3.vercel.app/"
                         target="_blank"
                         className={`group cursor-pointer rounded-md relative text-black text-lg font-medium inline-flex items-center w-full transition-colors ease-in-out duration-300 px-5 py-[9px] mb-2 hover:bg-gray sidebar-link-active`}
                       >

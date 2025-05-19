@@ -70,7 +70,7 @@ const sidebar_menu: Array<ISidebarMenus> = [
   {
     id: 9,
     icon: Setting,
-    link: "#",
+    link: "https://onewoodcraft3.vercel.app/",
     title: "Online store",
   },
   {

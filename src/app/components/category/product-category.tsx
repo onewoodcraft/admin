@@ -25,6 +25,9 @@ type IPropType = {
   };
 };
 
+// empty handler for required props
+const noop = () => {};
+
 export default function ProductCategory({
   setCategory,
   setParent,
@@ -91,11 +94,24 @@ export default function ProductCategory({
 
     content = (
       <>
-        <List className="p-0">
+        <List 
+          className="p-0" 
+          placeholder="" 
+          role="list"
+          onResize={noop}
+          onResizeCapture={noop}
+          onPointerEnterCapture={noop}
+          onPointerLeaveCapture={noop}
+        >
           {categoryItems.map((item) => (
             <Accordion
               key={item._id}
               open={open === item._id}
+              placeholder=""
+              onResize={noop}
+              onResizeCapture={noop}
+              onPointerEnterCapture={noop}
+              onPointerLeaveCapture={noop}
               icon={
                 <ChevronDownIcon
                   strokeWidth={2.5}
@@ -105,14 +121,32 @@ export default function ProductCategory({
                 />
               }
             >
-              <ListItem className="p-0" selected={open === item._id}>
+              <ListItem 
+                className="p-0" 
+                selected={open === item._id}
+                placeholder=""
+                onResize={noop}
+                onResizeCapture={noop}
+                onPointerEnterCapture={noop}
+                onPointerLeaveCapture={noop}
+              >
                 <AccordionHeader
                   onClick={() => handleCategory(item._id, item.parent)}
                   className="border-b-0 p-3"
+                  placeholder=""
+                  onResize={noop}
+                  onResizeCapture={noop}
+                  onPointerEnterCapture={noop}
+                  onPointerLeaveCapture={noop}
                 >
                   <Typography
                     color="blue-gray"
                     className="mr-auto font-normal mb-0"
+                    placeholder=""
+                    onResize={noop}
+                    onResizeCapture={noop}
+                    onPointerEnterCapture={noop}
+                    onPointerLeaveCapture={noop}
                   >
                     {item.parent}
                   </Typography>
@@ -120,9 +154,25 @@ export default function ProductCategory({
               </ListItem>
               {item.children.length > 0 && (
                 <AccordionBody className="py-1 ml-4">
-                  <List className="p-0">
+                  <List 
+                    className="p-0" 
+                    placeholder="" 
+                    role="list"
+                    onResize={noop}
+                    onResizeCapture={noop}
+                    onPointerEnterCapture={noop}
+                    onPointerLeaveCapture={noop}
+                  >
                     {item.children.map((sub: string, i: number) => (
-                      <ListItem key={i} onClick={() => handleSubCategory(sub)}>
+                      <ListItem 
+                        key={i} 
+                        onClick={() => handleSubCategory(sub)}
+                        placeholder=""
+                        onResize={noop}
+                        onResizeCapture={noop}
+                        onPointerEnterCapture={noop}
+                        onPointerLeaveCapture={noop}
+                      >
                         {sub}
                       </ListItem>
                     ))}
@@ -147,7 +197,15 @@ export default function ProductCategory({
         ))}
       </div>
       <div className="h-80 overflow-y-scroll overflow-x-hidden">
-        <Card>{content}</Card>
+        <Card 
+          placeholder=""
+          onResize={noop}
+          onResizeCapture={noop}
+          onPointerEnterCapture={noop}
+          onPointerLeaveCapture={noop}
+        >
+          {content}
+        </Card>
       </div>
     </>
   );

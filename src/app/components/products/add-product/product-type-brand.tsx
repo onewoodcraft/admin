@@ -166,3 +166,4 @@ const ProductTypeBrand = ({
 };
 
 export default ProductTypeBrand;
+
