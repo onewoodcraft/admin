@@ -9,12 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.0.0",
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.1.1",
     "@material-tailwind/react": "^2.0.1",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react-paginate": "^7.1.4",
+    "antd": "^5.25.2",
     "autoprefixer": "10.4.14",
+    "axios": "^1.9.0",
     "chart.js": "^4.1.1",
     "cloudinary": "^1.37.0",
     "dayjs": "^1.11.7",
@@ -43,12 +46,14 @@
     "sweetalert2": "^11.7.12",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
+    "xlsx": "^0.18.5",
     "yup": "^1.2.0"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.3",
     "@types/node": "^22.15.18",
-        "@types/react": "^18.2.21",    "@types/react-dom": "^18.2.7",
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7",
     "@types/react-select": "^5.0.0"
   }
 }
