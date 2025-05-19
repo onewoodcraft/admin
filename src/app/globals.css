@@ -123,7 +123,7 @@ input[type=number] {
 }
 
 .react-select-container .react-select__control--is-focused {
-  @apply border-primary shadow-none;
+  @apply border-theme shadow-none;
 }
 
 .react-select-container .react-select__value-container {
@@ -147,5 +147,5 @@ input[type=number] {
 }
 
 .react-select-container .react-select__option--is-selected {
-  @apply bg-primary text-white hover:bg-primary;
+  @apply bg-theme text-white hover:bg-themeDark;
 }
