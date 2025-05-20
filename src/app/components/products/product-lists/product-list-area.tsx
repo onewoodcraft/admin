@@ -35,7 +35,7 @@ const ProductListArea = () => {
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && isError && products?.data.length === 0) {
+  if (!isLoading && isError && (products?.data?.length || 0) === 0) {
     content = <ErrorMsg msg="No Products Found" />;
   }
 
@@ -61,7 +61,7 @@ const ProductListArea = () => {
             <ProductTableHead />
             {/* table head end */}
             <tbody>
-              {productItems.map((prd) => (
+              {(productItems || []).map((prd) => (
                 <ProductTableItem key={prd._id} product={prd} />
               ))}
             </tbody>
@@ -71,8 +71,8 @@ const ProductListArea = () => {
         {/* bottom  */}
         <div className="flex justify-between items-center flex-wrap mx-8">
           <p className="mb-0 text-tiny">
-            Showing {currentItems.length} of{" "}
-            {products?.data.length}
+            Showing {currentItems?.length || 0} of{" "}
+            {products?.data?.length || 0}
           </p>
           <div className="pagination py-3 flex justify-end items-center mx-8 pagination">
             <Pagination

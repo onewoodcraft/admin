@@ -103,7 +103,7 @@ export default function ProductCategory({
           onPointerEnterCapture={noop}
           onPointerLeaveCapture={noop}
         >
-          {categoryItems.map((item) => (
+          {(categoryItems || []).map((item) => (
             <Accordion
               key={item._id}
               open={open === item._id}
@@ -152,33 +152,19 @@ export default function ProductCategory({
                   </Typography>
                 </AccordionHeader>
               </ListItem>
-              {Array.isArray(item.children) && item.children.length > 0 && (
-                <AccordionBody className="py-1 ml-4">
-                  <List 
-                    className="p-0" 
-                    placeholder="" 
-                    role="list"
-                    onResize={noop}
-                    onResizeCapture={noop}
-                    onPointerEnterCapture={noop}
-                    onPointerLeaveCapture={noop}
-                  >
-                    {item.children.map((sub: string, i: number) => (
-                      <ListItem 
-                        key={i} 
-                        onClick={() => handleSubCategory(sub)}
-                        placeholder=""
-                        onResize={noop}
-                        onResizeCapture={noop}
-                        onPointerEnterCapture={noop}
-                        onPointerLeaveCapture={noop}
-                      >
-                        {sub}
-                      </ListItem>
-                    ))}
-                  </List>
-                </AccordionBody>
-              )}
+              {Array.isArray(item.children) && (item.children || []).map((sub: string, i: number) => (
+                <ListItem 
+                  key={i} 
+                  onClick={() => handleSubCategory(sub)}
+                  placeholder=""
+                  onResize={noop}
+                  onResizeCapture={noop}
+                  onPointerEnterCapture={noop}
+                  onPointerLeaveCapture={noop}
+                >
+                  {sub}
+                </ListItem>
+              ))}
             </Accordion>
           ))}
         </List>
@@ -189,7 +175,7 @@ export default function ProductCategory({
   return (
     <>
       <div className="tags-input-wrapper mb-2">
-        {selectedCategory.map((c, i) => (
+        {(selectedCategory || []).map((c, i) => (
           <span key={i} className="tag">
             {c}
             <b onClick={() => handleCategory("", c)}>×</b>

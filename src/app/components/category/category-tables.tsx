@@ -21,11 +21,11 @@ const CategoryTables = () => {
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && !isError && categories?.result.length === 0) {
+  if (!isLoading && !isError && (categories?.result?.length || 0) === 0) {
     content = <ErrorMsg msg="No Category Found" />;
   }
 
-  if (!isLoading && !isError && categories?.success && currentItems.length > 0) {
+  if (!isLoading && !isError && categories?.success && (currentItems?.length || 0) > 0) {
 
     
     
@@ -55,7 +55,7 @@ const CategoryTables = () => {
                 </tr>
               </thead>
               <tbody>
-                {[...currentItems.reverse()].map(item => (
+                {[...(currentItems || []).reverse()].map(item => (
                   <tr key={item._id} className="bg-white border-b border-gray6 last:border-0 text-start mx-9">
                     <td className="px-3 py-3 pl-0 font-normal text-[#55585B]">
                       #{item._id.slice(2, 10)}
@@ -70,7 +70,7 @@ const CategoryTables = () => {
                       /{item.productType}
                     </td>
                     <td className="px-3 py-3 font-normal text-[#55585B] text-end">
-                      {item.products?.length}
+                      {item.products?.length || 0}
                     </td>
                     <td className="px-9 py-3 text-end">
                       <div className="flex items-center justify-end space-x-2">

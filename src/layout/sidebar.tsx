@@ -48,7 +48,7 @@ export default function Sidebar({sideMenu,setSideMenu}:IProps) {
             </div>
             <div className="px-4 py-5">
               <ul>
-                {sidebar_menu.map((menu) => (
+                {(sidebar_menu || []).map((menu) => (
                   <li key={menu.id}>
                     {!menu.subMenus && menu.title !== 'Online store' && (
                       <Link
@@ -102,7 +102,7 @@ export default function Sidebar({sideMenu,setSideMenu}:IProps) {
                       <ul
                         className={`pl-[42px] pr-[20px] pb-3 ${isDropdown === menu.title ? "block" : "hidden"}`}
                       >
-                        {menu.subMenus.map((sub, i) => (
+                        {(menu.subMenus || []).map((sub, i) => (
                           <li key={i}>
                             <Link
                               href={sub.link}

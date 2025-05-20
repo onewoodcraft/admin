@@ -12,13 +12,13 @@ import Tags from "./tags";
 import FormField from "../form-field";
 
 const ValidationSummary = ({ errors }: { errors: string[] }) => {
-  if (!errors.length) return null;
+  if (!(errors?.length > 0)) return null;
   
   return (
     <div className="mb-6 bg-red-50 border border-red-200 rounded-md p-4">
       <h4 className="text-red-800 font-medium mb-2">Please fix the following errors:</h4>
       <ul className="list-disc list-inside space-y-1">
-        {errors.map((error, index) => (
+        {(errors || []).map((error, index) => (
           <li key={index} className="text-red-600 text-sm">{error}</li>
         ))}
       </ul>
@@ -81,7 +81,7 @@ const ProductSubmit = () => {
         } else if (errorData.message) {
           errorMessages = [errorData.message];
         } else if (Array.isArray(errorData)) {
-          errorMessages = errorData.map(err => err.message || err);
+          errorMessages = (errorData || []).map(err => err.message || err);
         } else {
           errorMessages = ["Server validation failed. Please check your input."];
         }
@@ -101,7 +101,7 @@ const ProductSubmit = () => {
 
   return (
     <form onSubmit={handleSubmit(handleSubmitProduct)} className="relative">
-      {validationErrors.length > 0 && (
+      {validationErrors?.length > 0 && (
         <div className="sticky top-0 z-50">
           <ValidationSummary errors={validationErrors} />
         </div>

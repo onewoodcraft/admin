@@ -51,7 +51,7 @@ const InvoicePrint = ({ orderData }: IPropType) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {orderData.cart.map((p) => (
+                  {(orderData.cart || []).map((p) => (
                     <tr
                       key={p._id}
                       className="bg-white border-b border-gray6 last:border-0 text-start mx-9"

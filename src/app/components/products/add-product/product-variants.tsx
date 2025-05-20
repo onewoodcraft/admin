@@ -73,12 +73,12 @@ const ProductVariants = ({
   //   }
   // };
   // col
-  const col = formData?.length > 1 ? 3 : 2;
+  const col = (formData?.length || 0) > 1 ? 3 : 2;
 
   return (
     <div className="bg-white px-8 py-8 rounded-md mb-6">
       <h4 className="text-[22px]">Product Variations</h4>
-      {Array.isArray(formData) && formData.map((field, i) => (
+      {(formData || []).map((field, i) => (
         <div key={i} className="mt-10 pt-10 border-t border-gray relative">
            {i !== 0 && (
               <div className="text-end">

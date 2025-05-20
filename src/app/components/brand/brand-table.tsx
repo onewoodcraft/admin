@@ -20,7 +20,7 @@ const BrandTables = () => {
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && !isError && brands?.result.length === 0) {
+  if (!isLoading && !isError && (brands?.result?.length || 0) === 0) {
     content = <ErrorMsg msg="No Category Found" />;
   }
 
@@ -72,7 +72,7 @@ const BrandTables = () => {
                 </tr>
               </thead>
               <tbody>
-                {[...currentItems.reverse()].map((item) => (
+                {[...(currentItems || []).reverse()].map((item) => (
                     <tr
                       key={item._id}
                       className="bg-white border-b border-gray6 last:border-0 text-start mx-9"

@@ -33,7 +33,7 @@ const ReviewProductArea = () => {
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && !isError && reviewProducts?.data.length === 0) {
+  if (!isLoading && !isError && (reviewProducts?.data?.length || 0) === 0) {
     content = <ErrorMsg msg="No Product Found" />;
   }
 
@@ -48,9 +48,9 @@ const ReviewProductArea = () => {
     if (selectValue) {
       review_items = review_items.filter((product) => {
         const averageRating =
-          product.reviews && product.reviews?.length > 0
+          product.reviews && (product.reviews?.length || 0) > 0
             ? product.reviews.reduce((acc, review) => acc + review.rating, 0) /
-              product.reviews.length
+              (product.reviews?.length || 1)
             : 0;
         return Math.floor(averageRating) === parseInt(selectValue);
       });
@@ -117,7 +117,7 @@ const ReviewProductArea = () => {
               </tr>
             </thead>
             <tbody>
-              {review_items.map((item) => (
+              {(review_items || []).map((item) => (
                 <ReviewItem key={item._id} item={item} />
               ))}
             </tbody>

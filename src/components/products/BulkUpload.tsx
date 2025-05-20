@@ -22,7 +22,7 @@ const BulkUpload: React.FC = () => {
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
 
         // Transform data to match your product schema
-        const products = jsonData.map((item: any) => ({
+        const products = (jsonData || []).map((item: any) => ({
           name: item.name,
           description: item.description,
           price: parseFloat(item.price),
@@ -41,7 +41,7 @@ const BulkUpload: React.FC = () => {
         const response = await axios.post('/api/products/bulk', { products });
         
         if (response.data.success) {
-          message.success(`Successfully uploaded ${products.length} products`);
+          message.success(`Successfully uploaded ${(products?.length || 0)} products`);
         } else {
           message.error('Failed to upload products');
         }

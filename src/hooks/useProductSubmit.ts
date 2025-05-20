@@ -150,14 +150,14 @@ const useProductSubmit = () => {
     }
 
     // If there are validation errors, throw them to be caught by the form component
-    if (validationErrors.length > 0) {
+    if ((validationErrors?.length || 0) > 0) {
       console.error("Validation errors:", validationErrors);
       throw new Error(validationErrors.join("\n"));
     }
 
     // If no variations are added, use the main product image as a variation
     let finalImageURLs = [...imageURLs];
-    if (finalImageURLs.length === 0 && img) {
+    if ((finalImageURLs?.length || 0) === 0 && img) {
       finalImageURLs = [{
         color: { name: "Default", clrCode: "#000000" },
         img: img,
@@ -203,8 +203,8 @@ const useProductSubmit = () => {
       price: price,
       discount: discount,
       quantity: quantity,
-      imageURLsLength: finalImageURLs.length,
-      additionalInformationLength: additionalInformation.length
+      imageURLsLength: finalImageURLs?.length || 0,
+      additionalInformationLength: additionalInformation?.length || 0,
     });
 
     try {
@@ -221,7 +221,7 @@ const useProductSubmit = () => {
           // Handle different types of server error responses
           if (errorData.errors && Array.isArray(errorData.errors)) {
             // Handle array of validation errors
-            const serverErrors = errorData.errors.map(err => err.msg || err.message || err).join("\n");
+            const serverErrors = (errorData.errors || []).map(err => err.msg || err.message || err).join("\n");
             console.error("Server validation errors:", errorData.errors);
             throw new Error(serverErrors);
           } else if (errorData.error) {

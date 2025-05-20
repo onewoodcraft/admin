@@ -43,7 +43,7 @@ const AdditionalInformation = ({
   };
   // handle add field
   const handleAddField = () => {
-    const lastField = formData[formData.length - 1];
+    const lastField = formData[(formData?.length || 1) - 1];
     if (lastField.key.trim() !== "" || lastField.value.trim() !== "") {
       setFormData([...formData, { key: "", value: "" }]);
       setAdditionalInformation([...formData]);
@@ -62,7 +62,7 @@ const AdditionalInformation = ({
       <div className="bg-white px-8 py-8 rounded-md mb-6">
         <h4 className="text-[22px]">Additional Information</h4>
         <div>
-          {Array.isArray(formData) && formData.map((data, index) => {
+          {(formData || []).map((data, index) => {
             const col = index === 0 ? 'col-span-6' : 'col-span-5';
             return (
               <div

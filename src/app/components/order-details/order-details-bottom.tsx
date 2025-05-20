@@ -46,7 +46,7 @@ const OrderDetailsBottom = ({productData,ship_cost}:IPropType) => {
                 </tr>
               </thead>
               <tbody>
-                {productData.map(p => (
+                {(productData || []).map(p => (
                 <tr key={p._id} className="bg-white border-b border-gray6 last:border-0 text-start mx-9">
                   <td className="pr-8 py-5 whitespace-nowrap">
                     <a href="#" className="flex items-center space-x-5">

@@ -11,10 +11,10 @@ function usePagination<T>(items: T[], itemsPerPage: number): PaginationResult<T>
 
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = items.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(items.length / itemsPerPage);
+  const pageCount = Math.ceil((items?.length || 0) / itemsPerPage);
 
   const handlePageClick = (event: { selected: number }) => {
-    const newOffset = (event.selected * itemsPerPage) % items.length;
+    const newOffset = (event.selected * itemsPerPage) % (items?.length || 1);
     setItemOffset(newOffset);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };

@@ -28,7 +28,7 @@ const RecentOrders = () => {
         <table className="w-full text-base text-left text-gray-500">
           <TableHead />
           <tbody>
-            {currentItems?.map((order) => (
+            {(currentItems || []).map((order) => (
                 <TableItem key={order._id} order={order} />
               ))}
           </tbody>

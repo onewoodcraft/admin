@@ -29,7 +29,7 @@ const VariantImgUpload = ({
 
   // handle image upload
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target && e.target.files && e.target.files.length > 0) {
+    if (e.target && e.target.files && (e.target.files?.length || 0) > 0) {
       const file = e.target.files[0];
       const formData = new FormData();
       formData.append("image", file);

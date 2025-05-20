@@ -80,7 +80,7 @@ const CouponTable = ({cls,setOpenSidebar,selectValue,searchValue}: IPropType) =>
             </tr>
           </thead>
           <tbody>
-            {coupon_items.map((coupon) => (
+            {(coupon_items || []).map((coupon) => (
                 <tr
                   key={coupon._id}
                   className="bg-white border-b border-gray6 last:border-0 text-start mx-9"
@@ -144,9 +144,9 @@ const CouponTable = ({cls,setOpenSidebar,selectValue,searchValue}: IPropType) =>
             <p className="mb-0 text-tiny">
               Showing 1-
               {
-                currentItems.length
+                currentItems?.length || 0
               }{" "}
-              of {coupons?.length}
+              of {coupons?.length || 0}
             </p>
             <div className="pagination py-3 flex justify-end items-center mx-8 pagination">
               <Pagination

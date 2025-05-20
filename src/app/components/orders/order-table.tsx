@@ -27,7 +27,7 @@ const OrderTable = () => {
   if (!isLoading && isError) {
     content = <ErrorMsg msg="There was an error" />;
   }
-  if (!isLoading && !isError && orders?.data.length === 0) {
+  if (!isLoading && !isError && (orders?.data?.length || 0) === 0) {
     content = <ErrorMsg msg="No Orders Found" />;
   }
 
@@ -96,7 +96,7 @@ const OrderTable = () => {
             </tr>
           </thead>
           <tbody>
-            {orderItems.map((item) => (
+            {(orderItems || []).map((item) => (
                 <tr
                   key={item._id}
                   className="bg-white border-b border-gray6 last:border-0 text-start mx-9"

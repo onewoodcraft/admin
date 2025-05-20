@@ -8,8 +8,8 @@ import EditDeleteBtn from "../../button/edit-delete-btn";
 const ProductTableItem = ({ product }: { product: IProduct }) => {
   const {_id, img, title, sku, price, reviews, status, quantity } = product || {};
   const averageRating =
-    reviews && reviews?.length > 0
-      ? reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length
+    reviews && (reviews?.length || 0) > 0
+      ? reviews.reduce((acc, review) => acc + review.rating, 0) / (reviews?.length || 1)
       : 0;
 
   return (
