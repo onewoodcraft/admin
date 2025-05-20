@@ -38,36 +38,33 @@ const ProductType = ({
             ? false
             : "productType is required!",
         }}
-        render={({ field }) => (
-          <ReactSelect
-            {...field}
-            value={field.value}
-            defaultValue={
-              default_value
-                ? {
-                    label: default_value,
-                    value: default_value,
-                  }
-                : {
-                    label: "Select..",
-                    value: 0,
-                  }
-            }
-            onChange={(selectedOption) => {
-              field.onChange(selectedOption);
-              handleSelectProduct(selectedOption?.value);
-            }}
-            options={[
-              { value: "chopping-boards", label: "Chopping Boards" },
-              { value: "platters", label: "Platters" },
-              { value: "trays", label: "Trays" },
-              { value: "planters", label: "Planters" },
-              { value: "bowls", label: "Bowls" },
-              { value: "cake-stands", label: "Cake Stands" },
-              { value: "gifting", label: "Gifting" },
-            ]}
-          />
-        )}
+        render={({ field }) => {
+          // List of options
+          const options = [
+            { value: "chopping-boards", label: "Chopping Boards" },
+            { value: "platters", label: "Platters" },
+            { value: "trays", label: "Trays" },
+            { value: "planters", label: "Planters" },
+            { value: "bowls", label: "Bowls" },
+            { value: "cake-stands", label: "Cake Stands" },
+            { value: "gifting", label: "Gifting" },
+          ];
+          // Find the selected option object
+          const selectedOption = (typeof field.value === 'string' && field.value && field.value !== undefined) ? options.find(opt => opt.value === field.value) : null;
+          const defaultOption = (typeof default_value === 'string' && default_value && default_value !== undefined) ? options.find(opt => opt.value === default_value) : null;
+          return (
+            <ReactSelect
+              {...field}
+              value={selectedOption}
+              defaultValue={defaultOption}
+              onChange={(selectedOption) => {
+                field.onChange(selectedOption?.value);
+                handleSelectProduct(selectedOption?.value);
+              }}
+              options={options}
+            />
+          );
+        }}
       />
       <ErrorMsg msg={errors?.productType?.message as string} />
     </>
