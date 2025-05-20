@@ -10,7 +10,8 @@ import usePagination from "@/hooks/use-pagination";
 
 const ProductGridArea = () => {
   const { data: products, isError, isLoading } = useGetAllProductsQuery();
-  const paginationData = usePagination(products?.data || [], 10);
+  const safeProducts = products && Array.isArray(products.data) ? products.data : [];
+  const paginationData = usePagination(safeProducts, 10);
   const { currentItems, handlePageClick, pageCount } = paginationData;
   const [searchValue, setSearchValue] = useState<string>("");
   const [selectValue, setSelectValue] = useState<string>("");
@@ -31,14 +32,13 @@ const ProductGridArea = () => {
   if (isLoading) {
     content = <h2>Loading....</h2>;
   }
-  if (!isLoading && isError) {
-    content = <ErrorMsg msg="There was an error" />;
+  else if (!isLoading && isError) {
+    content = <ErrorMsg msg="There was an error loading products" />;
   }
-  if (!isLoading && isError && products?.data.length === 0) {
+  else if (!isLoading && !isError && (!products?.data || !Array.isArray(products.data) || products.data.length === 0)) {
     content = <ErrorMsg msg="No Products Found" />;
   }
-
-  if (!isLoading && !isError && products?.success) {
+  else if (!isLoading && !isError && Array.isArray(products?.data) && products.data.length > 0) {
     let productItems =[...currentItems].reverse();
 
     // search field
