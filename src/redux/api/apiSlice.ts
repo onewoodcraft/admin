@@ -4,6 +4,9 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // Set the base URL directly to avoid environment variable issues
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://backend-8rnq.onrender.com";
 
+// Log the current API URL for debugging
+console.log("API Base URL:", BASE_URL);
+
 // Custom error interface with additional properties
 interface ApiError extends Error {
   status?: number;
