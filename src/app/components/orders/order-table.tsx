@@ -172,7 +172,7 @@ const OrderTable = () => {
         <div className="flex justify-between items-center flex-wrap">
           <p className="mb-0 text-tiny">
             Showing 1-
-            {currentItems.length} of {orders?.data.length}
+            {currentItems?.length || 0} of {orders?.data?.length || 0}
           </p>
           <div className="pagination py-3 flex justify-end items-center sm:mx-8 pagination">
             <Pagination

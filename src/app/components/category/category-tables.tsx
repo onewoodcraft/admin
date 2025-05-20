@@ -84,7 +84,7 @@ const CategoryTables = () => {
           </div>
         </div>
         <div className="flex justify-between items-center flex-wrap">
-          <p className="mb-0 text-tiny">Showing 1-{currentItems.length} of {categories?.result.length}</p>
+          <p className="mb-0 text-tiny">Showing 1-{currentItems?.length || 0} of {categories?.result?.length || 0}</p>
           <div className="pagination py-3 flex justify-end items-center pagination">
            <Pagination
               handlePageClick={handlePageClick}

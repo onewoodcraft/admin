@@ -141,7 +141,7 @@ const InvoicePrint = ({ orderData }: IPropType) => {
                       No of items:
                     </td>
                     <td className="px-3 py-3 text-[#55585B] text-end text-lg font-semibold">
-                      {orderData.cart.length}
+                      {orderData.cart?.length || 0}
                     </td>
                   </tr>
                   <tr className="bg-white border-b border-gray6 last:border-0 text-start mx-9">

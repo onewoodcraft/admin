@@ -73,7 +73,7 @@ const ProductVariants = ({
   //   }
   // };
   // col
-  const col = formData.length > 1 ? 3 : 2;
+  const col = formData?.length > 1 ? 3 : 2;
 
   return (
     <div className="bg-white px-8 py-8 rounded-md mb-6">

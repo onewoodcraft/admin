@@ -127,7 +127,7 @@ const ReviewProductArea = () => {
           <div className="flex justify-between items-center flex-wrap mx-8">
             <p className="mb-0 text-tiny mr-3">
               Showing 1-
-              {currentItems.length} of {reviewProducts?.data.length}
+              {currentItems?.length || 0} of {reviewProducts?.data?.length || 0}
             </p>
             <div className="pagination py-3 flex justify-end items-center mr-8 pagination">
               <Pagination

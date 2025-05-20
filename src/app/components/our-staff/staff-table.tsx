@@ -88,7 +88,7 @@ const StaffTables = () => {
           </div>
         </div>
         <div className="flex justify-between items-center flex-wrap">
-          <p className="mb-0 text-tiny">Showing 1-{currentItems.length} of {staffData?.data.length}</p>
+          <p className="mb-0 text-tiny">Showing 1-{currentItems?.length || 0} of {staffData?.data?.length || 0}</p>
           <div className="pagination py-3 flex justify-end items-center pagination">
               <Pagination
                 handlePageClick={handlePageClick}

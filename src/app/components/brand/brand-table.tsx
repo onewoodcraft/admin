@@ -119,8 +119,7 @@ const BrandTables = () => {
         <div className="flex justify-between items-center flex-wrap">
           <p className="mb-0 text-tiny">
             Showing 1-
-            {currentItems.length} of{" "}
-            {brands?.result.length}
+            {currentItems?.length || 0} of {brands?.result?.length || 0}
           </p>
           <div className="pagination py-3 flex justify-end items-center pagination">
             <Pagination

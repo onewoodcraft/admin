@@ -32,7 +32,7 @@ const NotificationArea = ({nRef,notificationOpen,handleNotificationOpen}: IPropT
       >
         <Notification />
         <span className="w-[20px] h-[20px] inline-block bg-danger rounded-full absolute -top-[4px] -right-[4px] border-[2px] border-white text-xs leading-[18px] font-medium text-white">
-          {products && products.length}
+          {products?.length || 0}
         </span>
       </button>
 
