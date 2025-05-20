@@ -58,8 +58,8 @@ const ProductType = ({
               value={selectedOption}
               defaultValue={defaultOption}
               onChange={(selectedOption) => {
-                field.onChange(selectedOption?.value);
-                handleSelectProduct(selectedOption?.value);
+                field.onChange(selectedOption?.value ?? "");
+                handleSelectProduct(selectedOption?.value ?? "");
               }}
               options={options}
             />
